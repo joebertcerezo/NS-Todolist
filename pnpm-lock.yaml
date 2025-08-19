@@ -57,6 +57,9 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.18(typescript@5.9.2))
     devDependencies:
+      '@nuxtjs/color-mode':
+        specifier: ^3.5.2
+        version: 3.5.2(magicast@0.3.5)
       '@types/qs':
         specifier: ^6.14.0
         version: 6.14.0
@@ -685,6 +688,9 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vue: ^3.3.4
+
+  '@nuxtjs/color-mode@3.5.2':
+    resolution: {integrity: sha512-cC6RfgZh3guHBMLLjrBB2Uti5eUoGM9KyauOaYS9ETmxNWBMTvpgjvSiSJp1OFljIXPIqVTJ3xtJpSNZiO3ZaA==}
 
   '@nuxtjs/strapi@2.1.1':
     resolution: {integrity: sha512-CNcsEqkhto4P5SEA4ZuRrGdfOT7swsZp/hvR7SNG3OW3J8eHJythE68P1LaszCq5uvYlg7j90Iue534sEdedtQ==}
@@ -5056,6 +5062,15 @@ snapshots:
       - vti
       - vue-tsc
       - yaml
+
+  '@nuxtjs/color-mode@3.5.2(magicast@0.3.5)':
+    dependencies:
+      '@nuxt/kit': 3.18.1(magicast@0.3.5)
+      pathe: 1.1.2
+      pkg-types: 1.3.1
+      semver: 7.7.2
+    transitivePeerDependencies:
+      - magicast
 
   '@nuxtjs/strapi@2.1.1(magicast@0.3.5)':
     dependencies:
