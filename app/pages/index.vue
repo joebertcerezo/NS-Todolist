@@ -257,6 +257,7 @@ const formatDate = (dateString: string) => {
 const toggleColorMode = () => {
   isDark.value = colorMode.value === "dark";
   colorMode.value = colorMode.value === "dark" ? "light" : "dark";
+  colorMode.preference = colorMode.value;
 };
 
 useHead({
