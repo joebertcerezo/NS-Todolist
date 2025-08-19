@@ -1,3 +1,29 @@
 Release Notes
 
-
+- 3169bd7d Add CHANGELOG.md
+- 1dd9895f Update tsconfig.json
+- 246eef4a Create STRAPI_USAGE_GUIDE.md
+- e8a4a39b Update pnpm-lock.yaml
+- 79ee04a1 Update package.json
+- c289fc0d Update nuxt.config.ts
+- 74ea57bc Create components.json
+- ea6b10db Create todo.ts
+- 8c259e10 Create ssr-width.ts
+- 560cee3a Create index.vue
+- 111d15f3 Create demo.vue
+- 150324d8 Create utils.ts
+- 67ae039d Create default.vue
+- 0be708e8 Create index.ts
+- c280d7f1 Create Button.vue
+- 77f800ac Create AddButton.vue
+- fb4370ad Create main.css
+- a41f5a70 Update app.vue
+- 0f922565 Create tsconfig.json
+- addc5579 Create robots.txt
+- 850196f9 Create favicon.ico
+- ab1b6a3b Create pnpm-lock.yaml
+- 302e7a3a Create package.json
+- 91e3b270 Create nuxt.config.ts
+- 6bcc8812 Create app.vue
+- 726150ab Create .gitignore
+- 944d59c7 Initial commit
