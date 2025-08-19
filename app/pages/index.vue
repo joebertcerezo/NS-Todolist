@@ -1,36 +1,14 @@
 <template>
   <div class="container mx-auto p-6 max-w-4xl">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">Todo List - Strapi</h1>
-
-    <!-- Add New Todo Form -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 class="text-xl font-semibold mb-4">Add New Todo</h2>
-      <form @submit.prevent="createTodo" class="space-y-4">
-        <div>
-          <input
-            v-model="newTodo.title"
-            type="text"
-            placeholder="Todo title"
-            required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <textarea
-            v-model="newTodo.description"
-            placeholder="Description (optional)"
-            rows="3"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          :disabled="creating"
-          class="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white px-4 py-2 rounded-md transition-colors"
-        >
-          {{ creating ? "Creating..." : "Add Todo" }}
-        </button>
-      </form>
+    <div class="flex justify-between">
+      <h1 class="text-3xl font-bold text-gray-800 mb-8">Todo List - Strapi</h1>
+      <Button
+        variant="ghost"
+        class="hover:cursor-pointer"
+        @click="isDark = !isDark"
+      >
+        <VIcon class="text-lg" :name="isDark ? 'icon-darkmode' : 'icon-lightmode'" />
+      </Button>
     </div>
 
     <!-- Loading State -->
@@ -51,7 +29,7 @@
       <div
         v-for="(todo, index) in todosList?.data"
         :key="index"
-        class="bg-white rounded-lg shadow-md p-6 border-l-4 border-gray-300"
+        class="bg-white rounded-lg shadow-md p-6 border-gray-300"
       >
         <div class="flex items-start justify-between">
           <div class="flex-1">
@@ -100,12 +78,69 @@
         <p class="text-gray-600">No todos yet. Create your first one above!</p>
       </div>
     </div>
-    <AddButton class="absolute right-10 bottom-10" />
+
+    <Dialog v-if="creating == false">
+      <DialogTrigger as-child>
+        <AddButton class="right-10 bottom-10 fixed" />
+      </DialogTrigger>
+      <DialogContent class="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Add new Todo</DialogTitle>
+          <DialogDescription>
+            Add a new todo item to your list.
+          </DialogDescription>
+        </DialogHeader>
+
+        <form @submit.prevent="createTodo" class="space-y-4">
+          <div>
+            <Input
+              v-model="newTodo.title"
+              type="text"
+              placeholder="Todo title"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <Input
+              v-model="newTodo.description"
+              placeholder="Description (optional)"
+              rows="3"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></Input>
+          </div>
+
+          <DialogFooter>
+            <Button
+              type="submit"
+              :disabled="creating"
+              class="disabled:bg-slate-300 text-white px-4 py-2 rounded-md transition-colors"
+            >
+              {{ creating ? "Creating..." : "Add Todo" }}
+            </Button>
+            <DialogClose>
+              <Button> Cancel </Button>
+            </DialogClose>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { CreateTodoData, Todo, TodosResponse } from "~/types/todo";
+import type { CreateTodoData, Todo, TodosResponse } from "@/types/todo";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import Input from "@/components/ui/input/Input.vue";
 
 // Strapi composables
 const { find, create, update, delete: deleteStrapi } = useStrapi();
@@ -116,6 +151,7 @@ const newTodo = ref<CreateTodoData>({
   description: "",
 });
 
+const isDark = ref(false);
 const creating = ref(false);
 const todosList = ref<TodosResponse>();
 const updating = ref<number | null>(null);
