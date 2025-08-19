@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  modules: ['@nuxtjs/strapi', 'shadcn-nuxt', '@vueuse/nuxt'],
+  modules: ['@nuxtjs/strapi', 'shadcn-nuxt', '@vueuse/nuxt', '@nuxtjs/color-mode'],
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -35,4 +35,15 @@ export default defineNuxtConfig({
       }
     }
   },
+  colorMode: {
+    preference: 'system', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if not system preference found
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storage: 'localStorage', // or 'sessionStorage' or 'cookie'
+    storageKey: 'nuxt-color-mode'
+  }
 })
