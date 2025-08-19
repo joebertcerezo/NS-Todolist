@@ -1,13 +1,18 @@
 <template>
   <div class="container mx-auto p-6 max-w-4xl">
     <div class="flex justify-between">
-      <h1 class="text-3xl font-bold text-gray-800 mb-8">Todo List - Strapi</h1>
+      <h1 class="text-3xl font-bold text-foreground mb-8">
+        Todo List - Strapi
+      </h1>
       <Button
         variant="ghost"
         class="hover:cursor-pointer"
-        @click="isDark = !isDark"
+        @click="toggleColorMode"
       >
-        <VIcon class="text-lg" :name="isDark ? 'icon-darkmode' : 'icon-lightmode'" />
+        <VIcon
+          class="text-lg"
+          :name="isDark ? 'icon-darkmode' : 'icon-lightmode'"
+        />
       </Button>
     </div>
 
@@ -19,7 +24,7 @@
     <!-- Error State -->
     <div
       v-if="error"
-      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+      class="bg-red-100 border border-destructive text-destructive px-4 py-3 rounded mb-4"
     >
       <strong>Error:</strong> {{ error }}
     </div>
@@ -29,11 +34,11 @@
       <div
         v-for="(todo, index) in todosList?.data"
         :key="index"
-        class="bg-white rounded-lg shadow-md p-6 border-gray-300"
+        class="bg-background rounded-lg shadow-md p-6 border-gray-300 dark:bg-gray-800 dark:border-gray-700"
       >
         <div class="flex items-start justify-between">
           <div class="flex-1">
-            <h3 class="text-lg font-medium text-gray-800">
+            <h3 class="text-lg font-medium text-foreground">
               {{ todo.title || "Untitled Todo" }}
             </h3>
             <p v-if="todo.description" class="text-gray-600 mt-2">
@@ -114,7 +119,7 @@
             <Button
               type="submit"
               :disabled="creating"
-              class="disabled:bg-slate-300 text-white px-4 py-2 rounded-md transition-colors"
+              class="disabled:bg-slate-300 text-foreground bg-accent px-4 py-2 rounded-md transition-colors"
             >
               {{ creating ? "Creating..." : "Add Todo" }}
             </Button>
@@ -151,6 +156,7 @@ const newTodo = ref<CreateTodoData>({
   description: "",
 });
 
+const colorMode = useColorMode();
 const isDark = ref(false);
 const creating = ref(false);
 const todosList = ref<TodosResponse>();
@@ -246,6 +252,11 @@ const removeTodo = async (todo: Todo, index: number) => {
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString();
+};
+
+const toggleColorMode = () => {
+  isDark.value = colorMode.value === "dark";
+  colorMode.value = colorMode.value === "dark" ? "light" : "dark";
 };
 
 useHead({
